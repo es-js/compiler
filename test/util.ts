@@ -39,6 +39,15 @@ export function assertResult(
   assertExpectations(code, {expectedResult}, options, message);
 }
 
+export function assertCompile(
+  esjsCode: string,
+  jsCode: string,
+): void {
+  assertExpectations(esjsCode, {expectedResult: jsCode}, {transforms: ["esjs"]}, "esjs");
+
+  assertExpectations(jsCode, {expectedResult: esjsCode}, {transforms: ["esjs", "js2esjs"]}, "js2esjs");
+}
+
 export function assertOutput(
   code: string,
   expectedOutput: unknown,

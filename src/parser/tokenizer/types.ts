@@ -126,6 +126,43 @@ export enum TokenType {
   _enum = 113168, // enum keyword startsExpr
   _type = 114192, // type keyword startsExpr
   _implements = 115216, // implements keyword startsExpr
+  _romper = 62480, // esjs:break
+  _caso = 63504, // esjs:case
+  _capturar = 64528, // esjs:catch
+  _continuar = 65552, // esjs:continue
+  _depurador = 66576, // esjs:debugger
+  _porDefecto = 67600, // esjs:default
+  _hacer = 68624, // esjs:do
+  _sino = 69648, // esjs:else
+  _finalmente = 70672, // esjs:finally
+  _para = 71696, // esjs:for
+  _funcion = 73232, // esjs:function
+  _si = 73744, // esjs:if
+  _retornar = 74768, // esjs:return
+  _elegir = 75792, // esjs:switch
+  _lanzar = 77456, // esjs:throw
+  _intentar = 77840, // esjs:try
+  _mut = 79888, // esjs:let
+  _mientras = 81936, // esjs:while
+  _con = 82960, // esjs:with
+  _crear = 84496, // esjs:new
+  _ambiente = 85520, // esjs:this
+  _clase = 87568, // esjs:class
+  _extiende = 88080, // esjs:extends
+  _exportar = 89104, // esjs:export
+  _importar = 90640, // esjs:import
+  _producir = 91664, // esjs:yield
+  _nulo = 92688, // esjs:null
+  _verdadero = 93712, // esjs:true
+  _falso = 94736, // esjs:false
+  _en = 95256, // esjs:in
+  _instanciaDe = 96280, // esjs:instanceof
+  _tipoDe = 97936, // esjs:typeof
+  _vacio = 98960, // esjs:void
+  _eliminar = 99984, // esjs:delete
+  _asincrono = 100880, // esjs:async
+  _como = 112144, // esjs:as
+  _implementa = 115216, // esjs:implements
 }
 export function formatTokenType(tokenType: TokenType): string {
   switch (tokenType) {
@@ -355,6 +392,80 @@ export function formatTokenType(tokenType: TokenType): string {
       return "type";
     case TokenType._implements:
       return "implements";
+    case TokenType._romper:
+      return "esjs:break";
+    case TokenType._caso:
+      return "esjs:case";
+    case TokenType._capturar:
+      return "esjs:catch";
+    case TokenType._continuar:
+      return "esjs:continue";
+    case TokenType._depurador:
+      return "esjs:debugger";
+    case TokenType._porDefecto:
+      return "esjs:default";
+    case TokenType._hacer:
+      return "esjs:do";
+    case TokenType._sino:
+      return "esjs:else";
+    case TokenType._finalmente:
+      return "esjs:finally";
+    case TokenType._para:
+      return "esjs:for";
+    case TokenType._funcion:
+      return "esjs:function";
+    case TokenType._si:
+      return "esjs:if";
+    case TokenType._retornar:
+      return "esjs:return";
+    case TokenType._elegir:
+      return "esjs:switch";
+    case TokenType._lanzar:
+      return "esjs:throw";
+    case TokenType._intentar:
+      return "esjs:try";
+    case TokenType._mut:
+      return "esjs:let";
+    case TokenType._mientras:
+      return "esjs:while";
+    case TokenType._con:
+      return "esjs:with";
+    case TokenType._crear:
+      return "esjs:new";
+    case TokenType._ambiente:
+      return "esjs:this";
+    case TokenType._clase:
+      return "esjs:class";
+    case TokenType._extiende:
+      return "esjs:extends";
+    case TokenType._exportar:
+      return "esjs:export";
+    case TokenType._importar:
+      return "esjs:import";
+    case TokenType._producir:
+      return "esjs:yield";
+    case TokenType._nulo:
+      return "esjs:null";
+    case TokenType._verdadero:
+      return "esjs:true";
+    case TokenType._falso:
+      return "esjs:false";
+    case TokenType._en:
+      return "esjs:in";
+    case TokenType._instanciaDe:
+      return "esjs:instanceof";
+    case TokenType._tipoDe:
+      return "esjs:typeof";
+    case TokenType._vacio:
+      return "esjs:void";
+    case TokenType._eliminar:
+      return "esjs:delete";
+    case TokenType._asincrono:
+      return "esjs:async";
+    case TokenType._como:
+      return "esjs:as";
+    case TokenType._implementa:
+      return "esjs:implements";
     default:
       return "";
   }

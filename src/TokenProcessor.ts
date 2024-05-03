@@ -2,6 +2,7 @@ import type {HelperManager} from "./HelperManager";
 import type {Token} from "./parser/tokenizer";
 import type {ContextualKeyword} from "./parser/tokenizer/keywords";
 import {type TokenType, TokenType as tt} from "./parser/tokenizer/types";
+import {transforms} from "./transformers/EsJSTransformer";
 import isAsyncOperation from "./util/isAsyncOperation";
 
 export interface TokenProcessorSnapshot {
@@ -20,6 +21,7 @@ export default class TokenProcessor {
   // output code.
   private resultMappings: Array<number | undefined> = new Array(this.tokens.length);
   private tokenIndex = 0;
+  private toLanguage: 'esjs' | 'js' = 'js';
 
   constructor(
     readonly code: string,
@@ -229,6 +231,14 @@ export default class TokenProcessor {
     if (this.tokens[this.tokenIndex].type !== tokenType) {
       throw new Error(`Expected token ${tokenType}`);
     }
+
+    const tokenValues = transforms.get(tokenType);
+
+    if (tokenValues) {
+      this.replaceToken(tokenValues[this.toLanguage === 'esjs' ? 0 : 1]);
+      return;
+    }
+
     this.copyToken();
   }
 
@@ -353,5 +363,9 @@ export default class TokenProcessor {
 
   isAtEnd(): boolean {
     return this.tokenIndex === this.tokens.length;
+  }
+
+  setToLanguage(toLanguage: 'esjs' | 'js') {
+    this.toLanguage = toLanguage;
   }
 }

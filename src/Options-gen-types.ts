@@ -11,6 +11,8 @@ export const Transform = t.union(
   t.lit("imports"),
   t.lit("react-hot-loader"),
   t.lit("jest"),
+  t.lit("esjs"),
+  t.lit("js2esjs"),
 );
 
 export const SourceMapOptions = t.iface([], {

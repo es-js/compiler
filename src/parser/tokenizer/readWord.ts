@@ -29,6 +29,18 @@ export default function readWord(): void {
     }
   }
 
+  if (input.slice(state.pos, state.pos + 12) === "instanciaDe ") {
+    // Replace `instanciaDe` with `instanceof`
+    treePos = 6615;
+    code = 32;
+    pos = state.pos + 11;
+  } else if (input.slice(state.pos, state.pos + 7) === "tipoDe ") {
+    // Replace `tipoDe` with `typeof`
+    treePos = 12069;
+    code = 32;
+    pos = state.pos + 6;
+  }
+
   const keywordValue = READ_WORD_TREE[treePos];
   if (keywordValue > -1 && !IS_IDENTIFIER_CHAR[code]) {
     state.pos = pos;

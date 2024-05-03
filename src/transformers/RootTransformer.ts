@@ -17,6 +17,7 @@ import ReactDisplayNameTransformer from "./ReactDisplayNameTransformer";
 import ReactHotLoaderTransformer from "./ReactHotLoaderTransformer";
 import type Transformer from "./Transformer";
 import TypeScriptTransformer from "./TypeScriptTransformer";
+import EsJSTransformer from "./EsJSTransformer";
 
 export interface RootTransformerResult {
   code: string;
@@ -34,6 +35,8 @@ export default class RootTransformer {
   private isReactHotLoaderTransformEnabled: boolean;
   private disableESTransforms: boolean;
   private helperManager: HelperManager;
+  private isEsJSTransformEnabled: boolean;
+  private isJS2EsJSTransformEnabled: boolean;
 
   constructor(
     sucraseContext: SucraseContext,
@@ -48,6 +51,17 @@ export default class RootTransformer {
     this.isImportsTransformEnabled = transforms.includes("imports");
     this.isReactHotLoaderTransformEnabled = transforms.includes("react-hot-loader");
     this.disableESTransforms = Boolean(options.disableESTransforms);
+    this.isEsJSTransformEnabled = transforms.includes("esjs");
+    this.isJS2EsJSTransformEnabled = transforms.includes("js2esjs");
+
+    if (this.isEsJSTransformEnabled) {
+      this.transformers.push(
+          new EsJSTransformer(tokenProcessor, {
+            from: this.isJS2EsJSTransformEnabled ? 'js' : 'esjs',
+            to: this.isJS2EsJSTransformEnabled ? 'esjs' : 'js',
+          })
+      )
+    }
 
     if (!options.disableESTransforms) {
       this.transformers.push(

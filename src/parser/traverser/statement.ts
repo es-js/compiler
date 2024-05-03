@@ -1042,6 +1042,13 @@ function isExportDefaultSpecifier(): boolean {
   } else if (isFlowEnabled && flowShouldDisallowExportDefaultSpecifier()) {
     return false;
   }
+
+  const potencialDefault = input.slice(state.start, state.end) === 'porDefecto'
+
+  if (potencialDefault) {
+    state.type = tt._default;
+  }
+
   if (match(tt.name)) {
     return state.contextualKeyword !== ContextualKeyword._async;
   }
@@ -1271,6 +1278,11 @@ function parseImportSpecifiers(): void {
 
   if (match(tt.star)) {
     next();
+
+    if (input.slice(state.start, state.end) === 'como') {
+      state.contextualKeyword = ContextualKeyword._as;
+    }
+
     expectContextual(ContextualKeyword._as);
 
     parseImportSpecifierLocal();
@@ -1310,6 +1322,11 @@ function parseImportSpecifier(): void {
     return;
   }
   parseImportedIdentifier();
+
+  if (input.slice(state.start, state.end) === 'como') {
+    state.contextualKeyword = ContextualKeyword._as;
+  }
+
   if (isContextual(ContextualKeyword._as)) {
     state.tokens[state.tokens.length - 1].identifierRole = IdentifierRole.ImportAccess;
     next();

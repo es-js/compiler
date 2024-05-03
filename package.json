@@ -1,8 +1,8 @@
 {
-  "name": "sucrase",
-  "version": "3.35.0",
-  "description": "Super-fast alternative to Babel for when you can target modern JS runtimes",
-  "author": "Alan Pierce <alangpierce@gmail.com>",
+  "name": "@es-js/compiler",
+  "version": "0.0.5",
+  "description": "Compilador del lenguaje EsJS",
+  "author": "Enzo Notario <enzo.notario@gmail.com",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
@@ -36,16 +36,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alangpierce/sucrase.git"
+    "url": "https://github.com/es-js/compiler.git"
   },
   "keywords": [
-    "babel",
-    "jsx",
-    "typescript",
-    "flow"
+    "esjs",
+    "sucrase",
+    "babel"
   ],
   "bugs": {
-    "url": "https://github.com/alangpierce/sucrase/issues"
+    "url": "https://github.com/es-js/compiler/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.22.5",

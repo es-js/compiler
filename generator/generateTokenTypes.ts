@@ -175,6 +175,60 @@ const types = {
   _enum: new KeywordTokenType("enum", {startsExpr}),
   _type: new KeywordTokenType("type", {startsExpr}),
   _implements: new KeywordTokenType("implements", {startsExpr}),
+
+  // EsJS Keywords
+  _romper: new KeywordTokenType("esjs:break"),
+  _caso: new KeywordTokenType("esjs:case"),
+  _capturar: new KeywordTokenType("esjs:catch"),
+  _continuar: new KeywordTokenType("esjs:continue"),
+  _depurador: new KeywordTokenType("esjs:debugger"),
+  _porDefecto: new KeywordTokenType("esjs:default"),
+  _hacer: new KeywordTokenType("esjs:do"),
+  _sino: new KeywordTokenType("esjs:else"),
+  _finalmente: new KeywordTokenType("esjs:finally"),
+  _para: new KeywordTokenType("esjs:for"),
+  _funcion: new KeywordTokenType("esjs:function", {startsExpr}),
+  _si: new KeywordTokenType("esjs:if"),
+  _retornar: new KeywordTokenType("esjs:return"),
+  _elegir: new KeywordTokenType("esjs:switch"),
+  _lanzar: new KeywordTokenType("esjs:throw", {prefix, startsExpr}),
+  _intentar: new KeywordTokenType("esjs:try"),
+  // _var: new KeywordTokenType("esjs:var"),
+  _mut: new KeywordTokenType("esjs:let"),
+  // _const: new KeywordTokenType("esjs:const"),
+  _mientras: new KeywordTokenType("esjs:while"),
+  _con: new KeywordTokenType("esjs:with"),
+  _crear: new KeywordTokenType("esjs:new", {startsExpr}),
+  _ambiente: new KeywordTokenType("esjs:this", {startsExpr}),
+  // _super: new KeywordTokenType("esjs:super", {startsExpr}),
+  _clase: new KeywordTokenType("esjs:class", {startsExpr}),
+  _extiende: new KeywordTokenType("esjs:extends"),
+  _exportar: new KeywordTokenType("esjs:export"),
+  _importar: new KeywordTokenType("esjs:import", {startsExpr}),
+  _producir: new KeywordTokenType("esjs:yield", {startsExpr}),
+  _nulo: new KeywordTokenType("esjs:null", {startsExpr}),
+  _verdadero: new KeywordTokenType("esjs:true", {startsExpr}),
+  _falso: new KeywordTokenType("esjs:false", {startsExpr}),
+  _en: new KeywordTokenType("esjs:in", {binop: 7}),
+  _instanciaDe: new KeywordTokenType("esjs:instanceof", {binop: 7}),
+  _tipoDe: new KeywordTokenType("esjs:typeof", {prefix, startsExpr}),
+  _vacio: new KeywordTokenType("esjs:void", {prefix, startsExpr}),
+  _eliminar: new KeywordTokenType("esjs:delete", {prefix, startsExpr}),
+  _asincrono: new KeywordTokenType("esjs:async", {startsExpr}),
+  // _get: new KeywordTokenType("esjs:get", {startsExpr}),
+  // _set: new KeywordTokenType("esjs:set", {startsExpr}),
+  // _declare: new KeywordTokenType("esjs:declare", {startsExpr}),
+  // _readonly: new KeywordTokenType("esjs:readonly", {startsExpr}),
+  // _abstract: new KeywordTokenType("esjs:abstract", {startsExpr}),
+  // _static: new KeywordTokenType("esjs:static", {startsExpr}),
+  // _public: new KeywordTokenType("esjs:public"),
+  // _private: new KeywordTokenType("esjs:private"),
+  // _protected: new KeywordTokenType("esjs:protected"),
+  // _override: new KeywordTokenType("esjs:override"),
+  _como: new KeywordTokenType("esjs:as", {startsExpr}),
+  // _enum: new KeywordTokenType("esjs:enum", {startsExpr}),
+  // _type: new KeywordTokenType("esjs:type", {startsExpr}),
+  _implementa: new KeywordTokenType("esjs:implements", {startsExpr}),
 };
 
 export default function generateTokenTypes(): string {
@@ -217,6 +271,19 @@ export enum TokenType {
   for (const [name, tokenType] of Object.entries(types)) {
     let value = 0;
     const descriptions = [tokenType.label];
+
+    if (descriptions[0].startsWith("esjs:")) {
+      const jsName = `_${descriptions[0].substring(5)}`;
+      const matchResult = code.match(new RegExp(`${jsName} = (\\d+),`));
+      if (matchResult !== null) {
+        const jsValue = matchResult[1];
+        code += `  ${name} = ${jsValue}, // ${descriptions.join(" ")}\n`;
+      } else {
+        console.error(`Error: ${jsName} not found`);
+      }
+      continue;
+    }
+
     value += count * TOKEN_INDEX;
     if (tokenType.binop !== null) {
       // Unspecified precedence is 0, so we need to start from 1.

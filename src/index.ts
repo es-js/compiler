@@ -32,7 +32,14 @@ export function getVersion(): string {
   return "3.35.0";
 }
 
-export function transform(code: string, options: Options): TransformResult {
+export function transform(code: string, options?: Partial<Options>): TransformResult {
+    return transformSucrase(code, {
+      transforms: ["esjs"],
+      ...options,
+    });
+}
+
+export function transformSucrase(code: string, options: Options): TransformResult {
   validateOptions(options);
   try {
     const sucraseContext = getSucraseContext(code, options);
